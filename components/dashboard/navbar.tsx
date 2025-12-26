@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
+import Link from "next/link"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -81,7 +82,9 @@ export function Navbar() {
   return (
     <header className="flex h-16 items-center justify-between border-b bg-background px-6">
       <div className="flex items-center gap-2">
-        <h2 className="text-lg font-semibold">MedAssist Dashboard</h2>
+        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <h2 className="text-lg font-semibold">MedAssist Dashboard</h2>
+        </Link>
         <span className="text-xs text-muted-foreground">({getRoleDisplayName(role)})</span>
       </div>
 
@@ -146,7 +149,12 @@ export function Navbar() {
               <span>Settings</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setUserRole("admin") // Reset to default
+                router.push("/")
+              }}
+            >
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
             </DropdownMenuItem>
